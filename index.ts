@@ -7,6 +7,7 @@ async function query(sql: string): Promise<object[]> {
   const client = new Client({
     database: "micado",
     port: 5432,
+    user: "covid_app",
   });
   await client.connect();
 
