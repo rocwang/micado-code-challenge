@@ -45,12 +45,10 @@ any level of CSS and/or any framework to pretty things up.
 
 1. Your front-end should provide a way to display and filter the data.
 2. You should have
-
-- summary metrics at the top of the layout,
-- followed with a visualisation that shows how the cases and tests results are
-  evolving over time,
-- and a table view to provide a more detailed breakdown of the sample data.
-
+  - summary metrics at the top of the layout,
+  - followed with a visualisation that shows how the cases and tests results are
+    evolving over time,
+  - and a table view to provide a more detailed breakdown of the sample data.
 3. As a global filter, you should provide a date picker to allow slicing the
    data in a date range.
 4. Your app should provide a drop-down filter for the visualisation and table to

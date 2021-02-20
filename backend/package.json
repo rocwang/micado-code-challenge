@@ -4,7 +4,9 @@
   "description": "The solution to the code challenge from Micado.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "watch": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -20,14 +22,16 @@
     "node": ">=15"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
     "@types/node": "^14.14.29",
     "@types/pg": "^7.14.10",
     "prettier": "^2.2.1",
     "typescript": "^4.1.5"
   },
-   "type": "module",
+  "type": "module",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.5.1"
   }

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import pg from "pg";
 
 const { Client } = pg;
@@ -19,7 +20,9 @@ async function query(sql: string): Promise<object[]> {
 }
 
 const app = express();
-const port = 3000;
+app.use(cors());
+
+const port = 3080;
 
 app.get("/", async (req, res) => {
   let result: any;
@@ -27,6 +30,7 @@ app.get("/", async (req, res) => {
   try {
     result = await query(req.query.sql as string);
   } catch (error: any) {
+    res.statusCode = 500;
     result = error.toString();
   }
 
@@ -34,5 +38,5 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Listening at http://localhost:${port}`);
 });
