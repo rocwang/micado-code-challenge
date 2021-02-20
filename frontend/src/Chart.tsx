@@ -74,7 +74,7 @@ const Chart: FC<{
       encode: { x: "parameter", y: "value" },
       datasetIndex: 5,
     },
-  ].filter((s) => seriesFilter.includes(s.name)) as any[];
+  ].filter((s) => seriesFilter.has(s.name)) as any[];
 
   const options: EChartsOption = {
     title: {

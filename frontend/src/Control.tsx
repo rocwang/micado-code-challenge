@@ -4,14 +4,16 @@ import { SetDate } from "./App";
 
 export type Indicator = "numberOfCases" | "testsPerDay" | "totalTests";
 
-export function indicatorsToSubSeries(indicators: Indicator[]) {
-  return indicators.flatMap(
-    (v) =>
-      ({
-        numberOfCases: ["Active", "Deceased", "Recovered"],
-        testsPerDay: ["Tests by day"],
-        totalTests: ["Total tests (cumulative)"],
-      }[v])
+export function indicatorsToSubSeries(indicators: Indicator[]): Set<string> {
+  return new Set(
+    indicators.flatMap(
+      (v) =>
+        ({
+          numberOfCases: ["Active", "Deceased", "Recovered"],
+          testsPerDay: ["Tests by day"],
+          totalTests: ["Total tests (cumulative)"],
+        }[v])
+    )
   );
 }
 

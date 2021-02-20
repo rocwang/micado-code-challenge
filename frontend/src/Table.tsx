@@ -27,7 +27,7 @@ const Table: FC<{
         Header: "Sub Series Name",
         accessor: "sub_series_name",
         filter: (rows, columnIds, filterValue: Indicator[]) => {
-          const target = new Set(indicatorsToSubSeries(filterValue));
+          const target = indicatorsToSubSeries(filterValue);
           return rows.filter((r) => target.has(r.values.sub_series_name));
         },
       },
