@@ -1,4 +1,5 @@
 import express from "express";
+import compression from "compression";
 import cors from "cors";
 import pg from "pg";
 
@@ -21,6 +22,7 @@ async function query(sql: string): Promise<object[]> {
 
 const app = express();
 app.use(cors());
+app.use(compression());
 
 const port = 3080;
 
