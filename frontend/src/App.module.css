@@ -1,0 +1,19 @@
+.root {
+  display: grid;
+  grid-template:
+    "control table chart" auto
+    / 1fr 2fr 3fr;
+  place-items: stretch;
+}
+
+.control {
+  grid-area: control;
+}
+
+.table {
+  grid-area: table;
+}
+
+.chart {
+  grid-area: chart;
+}
