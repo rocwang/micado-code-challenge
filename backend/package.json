@@ -1,5 +1,5 @@
 {
-  "name": "micado-code-challenge",
+  "name": "micado-backend",
   "version": "1.0.0",
   "description": "The solution to the code challenge from Micado.",
   "main": "index.js",
