@@ -3,7 +3,7 @@ version: '3.9'
 services:
    database:
      build: ./database
-     image: micado-database:latest
+     image: rocwang/micado-database:latest
      restart: always
      environment:
        POSTGRES_PASSWORD: micado
@@ -14,7 +14,7 @@ services:
      build: ./backend
      depends_on:
        - database
-     image: micado-backend:latest
+     image: rocwang/micado-backend:latest
      ports:
        - "3080:80"
      restart: always
@@ -29,7 +29,7 @@ services:
      build: ./frontend
      depends_on:
        - backend
-     image: micado-frontend:latest
+     image: rocwang/micado-frontend:latest
      ports:
        - "3000:80"
      restart: always
