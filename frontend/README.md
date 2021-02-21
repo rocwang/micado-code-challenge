@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# The Frontend of Micado Code Challenge Solution
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
