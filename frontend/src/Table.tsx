@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { Row, useCovidData } from "./store";
+import { Row, useCovidData } from "./api";
 import {
   ColumnInterface,
   CellProps,

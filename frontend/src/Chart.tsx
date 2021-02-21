@@ -1,7 +1,7 @@
 import { FC } from "react";
 import ReactECharts, { EChartsInstance } from "echarts-for-react";
 import { EChartsOption } from "echarts";
-import { useCovidData } from "./store";
+import { useCovidData } from "./api";
 import { Indicator, indicatorsToSubSeries } from "./Control";
 import { debounce } from "lodash-es";
 import { SetDate } from "./App";

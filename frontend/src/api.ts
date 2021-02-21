@@ -16,11 +16,15 @@ export interface Row {
 export function useDb(
   sql: string
 ): { rows: Row[] | undefined; isLoading: boolean; isError: any } {
-  const { data, error } = useSWR<Row[], any>(sql, (sql: string) =>
-    fetch("http://localhost:3080?" + new URLSearchParams({ sql })).then((res) =>
+  const { data, error } = useSWR<Row[], any>(sql, async (sql: string) => {
+    const apiLocation =
+      process.env.REACT_APP_API_LOCATION ??
+      (await fetch("/api_location").then((res) => res.json()));
+
+    return fetch(`${apiLocation}?${new URLSearchParams({ sql })}`).then((res) =>
       res.json()
-    )
-  );
+    );
+  });
 
   return {
     rows: data,

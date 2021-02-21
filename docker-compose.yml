@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+   database:
+     build: ./database
+     image: micado-database:latest
+     restart: always
+     environment:
+       POSTGRES_PASSWORD: micado
+       POSTGRES_USER: micado
+       POSTGRES_DB: micado
+
+   backend:
+     build: ./backend
+     depends_on:
+       - database
+     image: micado-backend:latest
+     ports:
+       - "3080:80"
+     restart: always
+     environment:
+       DB_HOST: database
+       DB_PORT: 5432
+       DB_USER: micado
+       DB_PASSWORD: micado
+       DB_NAME: micado
+
+   frontend:
+     build: ./frontend
+     depends_on:
+       - backend
+     image: micado-frontend:latest
+     ports:
+       - "3000:80"
+     restart: always
+     environment:
+       API_HOST: localhost
+       API_PORT: 3080
