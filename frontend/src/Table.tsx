@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { Row, useCovidData } from "./api";
 import {
   ColumnInterface,
@@ -12,6 +12,7 @@ import { equals, pipe } from "ramda";
 import { parseJSON } from "date-fns";
 import styles from "./Table.module.css";
 import { format } from "date-fns/fp";
+import { useWindowSize } from "react-use";
 
 const Table: FC<{
   className: string;
@@ -24,7 +25,7 @@ const Table: FC<{
   const cols: ColumnInterface[] = useMemo(
     () => [
       {
-        Header: "Sub Series Name",
+        Header: "Indicator",
         accessor: "sub_series_name",
         filter: (rows, columnIds, filterValue: Indicator[]) => {
           const target = indicatorsToSubSeries(filterValue);
@@ -32,7 +33,7 @@ const Table: FC<{
         },
       },
       {
-        Header: "Parameter",
+        Header: "Date",
         accessor: "parameter",
         filter: (rows, columnIds, [from, to]: Date[]) => {
           return rows.filter((r) => {
@@ -51,11 +52,15 @@ const Table: FC<{
     ],
     []
   );
+
+  const { height: windowHeight } = useWindowSize();
+  const currentPageSize = Math.floor((windowHeight - 280) / 33);
+
   const tableInstance = useTable(
     {
       columns: cols as any,
       data: (data ?? []) as any,
-      initialState: { pageSize: 50 },
+      initialState: { pageSize: currentPageSize },
     },
     useFilters,
     usePagination
@@ -93,59 +98,23 @@ const Table: FC<{
     colParameter.setFilter([from, to]);
   }
 
+  if (pageSize !== currentPageSize) {
+    setPageSize(currentPageSize);
+  }
+
   return (
     <div className={`${className} ${styles.root}`}>
-      <div>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
-        </button>{" "}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {"<"}
-        </button>{" "}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {">"}
-        </button>{" "}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {">>"}
-        </button>{" "}
-        <span>
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
-        </span>
-        <span>
-          | Go to page:{" "}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
-            }}
-            style={{ width: "100px" }}
-          />
-        </span>{" "}
-        <select
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <table {...getTableProps()}>
+      <table
+        {...getTableProps()}
+        className="table table-striped table-hover table-bordered table-sm"
+      >
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps()} scope="col">
+                  {column.render("Header")}
+                </th>
               ))}
             </tr>
           ))}
@@ -165,6 +134,68 @@ const Table: FC<{
           })}
         </tbody>
       </table>
+
+      <form className="row row-cols-auto align-items-center g-3">
+        <div className="col flex-grow-1">
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>
+        </div>
+        <div className="col">
+          <div className="btn-group" role="group" aria-label="pagination">
+            <button
+              type="button"
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+              className="btn btn-primary"
+            >
+              {"<<"}
+            </button>
+            <button
+              type="button"
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              className="btn btn-primary"
+            >
+              {"<"}
+            </button>
+            <button
+              type="button"
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              className="btn btn-primary"
+            >
+              {">"}
+            </button>
+            <button
+              type="button"
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+              className="btn btn-primary"
+            >
+              {">>"}
+            </button>
+          </div>
+        </div>
+        <div className={`col ${styles.goToPage}`}>
+          <div className="input-group">
+            <span className="input-group-text" id="gotoPage">
+              Go to page
+            </span>
+            <input
+              type="number"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              className="form-control"
+              aria-describedby="gotoPage"
+            />
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

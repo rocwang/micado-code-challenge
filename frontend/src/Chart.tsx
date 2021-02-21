@@ -131,7 +131,7 @@ const Chart: FC<{
       type: "time",
     },
     yAxis: {
-      name: "Number of Cases",
+      name: "Number of Cases / Tests",
       type: "value",
       max: (value) => Math.round(value.max * 1.2),
     },
@@ -187,7 +187,7 @@ const Chart: FC<{
       showLoading={isLoading}
       notMerge={true}
       option={options}
-      style={{ height: "100vh" }}
+      style={{ height: "calc(100vh - 40px)", width: "100%" }}
       onEvents={{
         datazoom: onDataZoom,
       }}

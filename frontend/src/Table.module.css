@@ -1,6 +1,10 @@
 .root {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: stretch;
+}
+
+.goToPage {
+  width: 200px;
 }
