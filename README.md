@@ -1,12 +1,6 @@
-# The Solution to the code challenge from Micado
+# The Solution to the Code Challenge from Micado
 
-Tested on macOS `10.15.7` and `11.2.1` with:
-
-- Docker Desktop for Mac `3.1.0` containing:
-  - Docker engine `20.10.2`
-  - Docker compose `1.27.4`
-
-## How to Run the Sollution
+## How to Run the Solution
 
 1. Install [`docker`][docker] and [`docker-compose`][compose]. For Mac and
    Windows, you can install Docker Desktop.
@@ -18,6 +12,12 @@ Tested on macOS `10.15.7` and `11.2.1` with:
 1. Make sure the port `3000` and `3080` are not used on your computer.
 1. Run `docker-compose up -d`.
 1. Open `http://localhost:3000/` from your browser.
+
+The solution is tested on macOS `10.15.7` and `11.2.1` with:
+
+- Docker Desktop for Mac `3.1.0` containing:
+  - Docker engine `20.10.2`
+  - Docker compose `1.27.4`
 
 ## Technology Stack
 
@@ -36,6 +36,16 @@ Tested on macOS `10.15.7` and `11.2.1` with:
 - Lodash
 - Ramda
 - SWR
+
+## Docker Container Images
+
+The prebuilt images can be found as below:
+
+- [Frontend][frontend image]
+- [Backend][backend image]
+- [Database][database image]
+
+---
 
 > # Technical Interview Challenge Full-Stack Developer
 >
@@ -110,3 +120,6 @@ Tested on macOS `10.15.7` and `11.2.1` with:
 [docker]: https://docs.docker.com/engine/install/
 [compose]: https://docs.docker.com/compose/install/
 [repo]: https://github.com/rocwang/micado-code-challenge.git
+[frontend image]: https://hub.docker.com/r/rocwang/micado-frontend
+[backend image]: https://hub.docker.com/r/rocwang/micado-backend
+[database image]: https://hub.docker.com/r/rocwang/micado-database
